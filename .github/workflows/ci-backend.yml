@@ -1,0 +1,66 @@
+name: CI — Backend
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "services/api/**"
+      - ".github/workflows/ci-backend.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "services/api/**"
+
+defaults:
+  run:
+    working-directory: services/api
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: aegis
+          POSTGRES_PASSWORD: aegis_dev_password
+          POSTGRES_DB: aegis
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U aegis -d aegis"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Lint with ruff
+        run: ruff check app tests
+
+      - name: Run tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://aegis:aegis_dev_password@localhost:5432/aegis
+          REDIS_URL: redis://localhost:6379/0
+          NEO4J_URI: bolt://localhost:7687
+        run: pytest tests/ -v

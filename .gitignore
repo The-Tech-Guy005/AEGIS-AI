@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+*.egg-info/
+.eggs/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker
+*.pid
+
+# Terraform
+infra/terraform/**/.terraform/
+*.tfstate
+*.tfstate.*
+
+# Uploads / local storage
+uploads/
+.minio/
+
+# Next.js
+next-env.d.ts
+.vercel
+
+# Alembic
+services/api/app/db/migrations/versions/__pycache__/
