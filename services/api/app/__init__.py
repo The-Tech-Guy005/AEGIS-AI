@@ -1,0 +1,1 @@
+"""AEGIS AI FastAPI application."""
