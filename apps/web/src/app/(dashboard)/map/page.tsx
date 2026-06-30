@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import Sidebar from "@/components/Sidebar";
 import { 
   ArrowLeft, 
   Search, 
@@ -82,7 +83,9 @@ export default function MapPage() {
   };
 
   return (
-    <div className="relative h-screen w-full bg-slate-950 overflow-hidden">
+    <div className="flex">
+      <Sidebar />
+      <div className="relative h-screen w-full bg-slate-950 overflow-hidden">
       {/* UI Overlay: Top Navigation */}
       <div className="absolute top-0 left-0 right-0 z-[1000] p-4 pointer-events-none">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4">
@@ -229,6 +232,7 @@ export default function MapPage() {
           background: #020617 !important;
         }
       `}</style>
+    </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import Sidebar from "@/components/Sidebar";
 import { 
   AlertOctagon, 
   ArrowLeft, 
@@ -88,7 +89,9 @@ export default function ReportIncidentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
       <div className="max-w-3xl mx-auto">
         {/* Navigation */}
         <Link 
@@ -269,6 +272,7 @@ export default function ReportIncidentPage() {
           </p>
         </footer>
       </div>
+    </div>
     </div>
   );
 }

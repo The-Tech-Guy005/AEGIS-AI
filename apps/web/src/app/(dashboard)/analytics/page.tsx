@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Sidebar from "@/components/Sidebar";
 import { 
   Shield, 
   Activity, 
@@ -302,7 +303,9 @@ export default function AegisAnalyticsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-300">
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 min-h-screen bg-slate-950">
       
       {/* HEADER SECTION */}
       <header className="border-b border-[#1e293b] bg-[#0d121f]/60 backdrop-blur-md sticky top-0 z-40">
@@ -881,6 +884,7 @@ export default function AegisAnalyticsPage() {
         )}
       </AnimatePresence>
 
+    </div>
     </div>
   );
 }
