@@ -7,7 +7,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.security import get_current_user
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.attachment import AttachmentResponse, AttachmentUploadRequest, AttachmentUploadResponse
+from app.schemas.attachment import (
+    AttachmentResponse,
+    AttachmentUploadRequest,
+    AttachmentUploadResponse,
+)
 from app.services.attachment_service import PRESIGNED_URL_TTL_SECONDS, AttachmentService
 
 router = APIRouter(prefix="/incidents/{incident_id}/attachments", tags=["attachments"])

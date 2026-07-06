@@ -30,10 +30,7 @@ async def seed_hazard_types() -> int:
 
 async def run() -> None:
     created = await seed_hazard_types()
-    print(
-        f"Seeded {created} new hazard type(s); "
-        f"{len(HAZARD_TYPES) - created} already present."
-    )
+    print(f"Seeded {created} new hazard type(s); {len(HAZARD_TYPES) - created} already present.")
 
 
 def main() -> None:

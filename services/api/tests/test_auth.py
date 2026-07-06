@@ -3,8 +3,6 @@ from unittest.mock import patch
 import pytest
 from httpx import AsyncClient
 
-from app.schemas.auth import ClerkTokenClaims
-
 
 @pytest.mark.asyncio
 async def test_get_me_missing_token(client: AsyncClient) -> None:

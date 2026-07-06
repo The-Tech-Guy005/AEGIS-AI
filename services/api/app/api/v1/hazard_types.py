@@ -11,7 +11,9 @@ router = APIRouter(prefix="/hazard-types", tags=["hazard-types"])
 
 
 @router.get("", response_model=list[HazardTypeResponse])
-async def list_hazard_types(db: Annotated[AsyncSession, Depends(get_db)]) -> list[HazardTypeResponse]:
+async def list_hazard_types(
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> list[HazardTypeResponse]:
     repo = HazardTypeRepository(db)
     hazard_types = await repo.list_all()
     return [HazardTypeResponse.model_validate(h) for h in hazard_types]
