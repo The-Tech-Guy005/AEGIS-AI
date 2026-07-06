@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from app.db.session import Base
 
 
-class UserRole(str, enum.Enum):
+class UserRole(enum.StrEnum):
     ADMIN = "admin"
     RESPONDER = "responder"
     ANALYST = "analyst"

@@ -16,7 +16,11 @@ incident_status = sa.Enum(
     "reported", "verified", "responding", "resolved", "closed", name="incident_status"
 )
 incident_event_type = sa.Enum(
-    "created", "status_changed", "severity_changed", "note", "attachment_added",
+    "created",
+    "status_changed",
+    "severity_changed",
+    "note",
+    "attachment_added",
     name="incident_event_type",
 )
 
@@ -60,9 +64,7 @@ def upgrade() -> None:
     )
     op.create_index("ix_incidents_hazard_type_id", "incidents", ["hazard_type_id"])
     op.create_index("ix_incidents_status", "incidents", ["status"])
-    op.execute(
-        "CREATE INDEX ix_incidents_location ON incidents USING GIST (location)"
-    )
+    op.execute("CREATE INDEX ix_incidents_location ON incidents USING GIST (location)")
 
     op.create_table(
         "incident_events",

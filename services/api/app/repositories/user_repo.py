@@ -2,7 +2,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import User
-from app.schemas.auth import ClerkTokenClaims
 
 
 class UserRepository:

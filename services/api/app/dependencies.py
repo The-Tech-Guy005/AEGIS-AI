@@ -1,6 +1,6 @@
 import time
 
-from neo4j import AsyncGraphDatabase, AsyncDriver
+from neo4j import AsyncDriver, AsyncGraphDatabase
 from redis.asyncio import Redis
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -34,7 +34,9 @@ async def check_postgres(session: AsyncSession) -> ServiceCheck:
     try:
         await session.execute(text("SELECT 1"))
         latency = (time.perf_counter() - start) * 1000
-        return ServiceCheck(name="postgres", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2))
+        return ServiceCheck(
+            name="postgres", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2)
+        )
     except Exception as exc:
         return ServiceCheck(name="postgres", status=ServiceStatus.UNHEALTHY, message=str(exc))
 
@@ -47,7 +49,9 @@ async def check_neo4j() -> ServiceCheck:
             result = await session.run("RETURN 1 AS n")
             await result.single()
         latency = (time.perf_counter() - start) * 1000
-        return ServiceCheck(name="neo4j", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2))
+        return ServiceCheck(
+            name="neo4j", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2)
+        )
     except Exception as exc:
         return ServiceCheck(name="neo4j", status=ServiceStatus.UNHEALTHY, message=str(exc))
 
@@ -58,7 +62,9 @@ async def check_redis() -> ServiceCheck:
         client = get_redis_client()
         await client.ping()
         latency = (time.perf_counter() - start) * 1000
-        return ServiceCheck(name="redis", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2))
+        return ServiceCheck(
+            name="redis", status=ServiceStatus.HEALTHY, latency_ms=round(latency, 2)
+        )
     except Exception as exc:
         return ServiceCheck(name="redis", status=ServiceStatus.UNHEALTHY, message=str(exc))
 

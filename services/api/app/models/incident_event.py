@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.session import Base
 
 
-class IncidentEventType(str, enum.Enum):
+class IncidentEventType(enum.StrEnum):
     CREATED = "created"
     STATUS_CHANGED = "status_changed"
     SEVERITY_CHANGED = "severity_changed"
@@ -22,14 +22,23 @@ class IncidentEvent(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     incident_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("incidents.id", ondelete="CASCADE"), nullable=False, index=True
+        UUID(as_uuid=True),
+        ForeignKey("incidents.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
     )
     event_type: Mapped[IncidentEventType] = mapped_column(
-        Enum(IncidentEventType, name="incident_event_type", values_callable=lambda o: [e.value for e in o]),
+        Enum(
+            IncidentEventType,
+            name="incident_event_type",
+            values_callable=lambda o: [e.value for e in o],
+        ),
         nullable=False,
     )
     note: Mapped[str | None] = mapped_column(Text, nullable=True)
-    actor_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    actor_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(UTC),

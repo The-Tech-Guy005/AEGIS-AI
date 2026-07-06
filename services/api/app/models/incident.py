@@ -10,14 +10,14 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.session import Base
 
 
-class IncidentSeverity(str, enum.Enum):
+class IncidentSeverity(enum.StrEnum):
     LOW = "low"
     MODERATE = "moderate"
     HIGH = "high"
     CRITICAL = "critical"
 
 
-class IncidentStatus(str, enum.Enum):
+class IncidentStatus(enum.StrEnum):
     REPORTED = "reported"
     VERIFIED = "verified"
     RESPONDING = "responding"
@@ -36,12 +36,18 @@ class Incident(Base):
         UUID(as_uuid=True), ForeignKey("hazard_types.id"), nullable=False, index=True
     )
     severity: Mapped[IncidentSeverity] = mapped_column(
-        Enum(IncidentSeverity, name="incident_severity", values_callable=lambda o: [e.value for e in o]),
+        Enum(
+            IncidentSeverity,
+            name="incident_severity",
+            values_callable=lambda o: [e.value for e in o],
+        ),
         nullable=False,
         default=IncidentSeverity.MODERATE,
     )
     status: Mapped[IncidentStatus] = mapped_column(
-        Enum(IncidentStatus, name="incident_status", values_callable=lambda o: [e.value for e in o]),
+        Enum(
+            IncidentStatus, name="incident_status", values_callable=lambda o: [e.value for e in o]
+        ),
         nullable=False,
         default=IncidentStatus.REPORTED,
         index=True,
