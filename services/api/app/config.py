@@ -36,6 +36,12 @@ class Settings(BaseSettings):
     clerk_secret_key: str = ""
     clerk_publishable_key: str = ""
     clerk_jwks_url: str = ""
+    s3_endpoint: str = "http://localhost:9000"
+    s3_access_key: str = "aegis_minio"
+    s3_secret_key: str = "aegis_minio_secret"
+    s3_bucket: str = "aegis-uploads"
+    s3_region: str = "us-east-1"
+    s3_use_ssl: bool = False
 
     @property
     def cors_origins(self) -> list[str]:

@@ -12,6 +12,7 @@ dependencies = [
     "asyncpg>=0.30.0",
     "alembic>=1.14.0",
     "geoalchemy2>=0.15.0",
+    "shapely>=2.0.0",
     "neo4j>=5.26.0",
     "redis>=5.2.0",
     "celery>=5.4.0",
