@@ -36,11 +36,11 @@ interface Incident {
 }
 
 const MOCK_INCIDENTS: Incident[] = [
-  { id: '1', title: 'Flash Flood Warning', severity: 'High', location: 'River District', coordinates: [40.7128, -74.0060], time: '10m ago' },
-  { id: '2', title: 'Wildfire Outreach', severity: 'Medium', location: 'East Hills', coordinates: [40.7306, -73.9352], time: '25m ago' },
-  { id: '3', title: 'Power Grid Failure', severity: 'High', location: 'Downtown Hub', coordinates: [40.7580, -73.9855], time: '2m ago' },
-  { id: '4', title: 'Road Blockage', severity: 'Low', location: 'Route 9 North', coordinates: [40.7829, -73.9654], time: '1h ago' },
-  { id: '5', title: 'Gas Leak', severity: 'High', location: 'Industrial Park', coordinates: [40.7060, -73.9968], time: '5m ago' },
+  { id: '1', title: 'Flash Flood Warning', severity: 'High', location: 'Connaught Place', coordinates: [28.6315, 77.2167], time: '10m ago' },
+  { id: '2', title: 'Wildfire Outreach', severity: 'Medium', location: 'India Gate', coordinates: [28.6129, 77.2295], time: '25m ago' },
+  { id: '3', title: 'Power Grid Failure', severity: 'High', location: 'Karol Bagh', coordinates: [28.6519, 77.1909], time: '2m ago' },
+  { id: '4', title: 'Road Blockage', severity: 'Low', location: 'Lajpat Nagar', coordinates: [28.5677, 77.2413], time: '1h ago' },
+  { id: '5', title: 'Gas Leak', severity: 'High', location: 'Dwarka', coordinates: [28.5921, 77.0460], time: '5m ago' },
 ];
 
 export default function MapPage() {
@@ -139,9 +139,9 @@ export default function MapPage() {
       </div>
 
       {/* Map Implementation */}
-      {typeof window !== 'undefined' && (
+      
         <MapContainer 
-          center={[40.7128, -74.0060]} 
+          center={[28.6139, 77.2090]} 
           zoom={13} 
           className="h-full w-full z-0"
           zoomControl={false}
@@ -151,7 +151,9 @@ export default function MapPage() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           />
-
+          <p className="absolute top-24 left-4 z-[1000] bg-red-500 text-white p-2 rounded">
+            Total Incidents: {filteredIncidents.length}
+          </p>
           {L && filteredIncidents.map((incident) => (
             <Marker 
               key={incident.id} 
@@ -189,7 +191,7 @@ export default function MapPage() {
             </Marker>
           ))}
         </MapContainer>
-      )}
+      
 
       {/* Stats Overlay: Bottom Left */}
       <div className="absolute bottom-8 left-8 z-[1000] hidden lg:block">
